@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 
-class CategoryFilterChips extends StatefulWidget {
-  @override
-  _CategoryFilterChipsState createState() => _CategoryFilterChipsState();
-}
+class CategoryFilterChips extends StatelessWidget {
+  final List<String> categories;
+  final String selectedCategory;
+  final Function(String) onCategorySelected;
 
-class _CategoryFilterChipsState extends State<CategoryFilterChips> {
-  final List<String> categories = ['All', 'Indian', 'Italian', 'Asian', 'Chinese'];
-  int selectedIndex = 0;
+  const CategoryFilterChips({
+    Key? key,
+    required this.categories,
+    required this.selectedCategory,
+    required this.onCategorySelected,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,18 +21,15 @@ class _CategoryFilterChipsState extends State<CategoryFilterChips> {
         itemCount: categories.length,
         separatorBuilder: (_, __) => SizedBox(width: 12),
         itemBuilder: (context, index) {
-          bool isSelected = index == selectedIndex;
+          bool isSelected = categories[index] == selectedCategory;
           return GestureDetector(
-            onTap: () {
-              setState(() {
-                selectedIndex = index;
-              });
-            },
+            onTap: () => onCategorySelected(categories[index]),
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
               decoration: BoxDecoration(
                 color: isSelected ? Color(0xFF2E7D7B) : Colors.transparent,
                 borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: Color(0xFF2E7D7B)),
               ),
               child: Text(
                 categories[index],

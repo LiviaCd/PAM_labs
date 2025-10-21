@@ -1,46 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pam_lab2/recipecard.dart';
+import '../controllers/recipe_controller.dart';
 
 class FeaturedRecipes extends StatelessWidget {
-  final List<Map<String, dynamic>> recipes = [
-    {
-      'imagePath': 'assets/images/classic_greek_salad.png',
-      'title': 'Classic Greek Salad',
-      'rating': 4.5,
-      'time': '15 Mins',
-    },
-    {
-      'imagePath': 'assets/images/crunchy_nut_coleslaw.png',
-      'title': 'Crunchy Nut Coleslaw',
-      'rating': 3.5,
-      'time': '10 Mins',
-    },
-    {
-      'imagePath': 'assets/images/classic_greek_salad.png',
-      'title': 'Classic Greek Salad',
-      'rating': 4.5,
-      'time': '15 Mins',
-    },
-  ];
+  final RecipeController recipeController = Get.find<RecipeController>();
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 250,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        itemCount: recipes.length,
-        separatorBuilder: (_, __) => SizedBox(width: 16),
-        itemBuilder: (context, index) {
-          final recipe = recipes[index];
-          return RecipeCard(
-            imagePath: recipe['imagePath'],
-            title: recipe['title'],
-            rating: recipe['rating'],
-            time: recipe['time'],
-          );
-        },
-      ),
-    );
+    return Obx(() {
+      if (recipeController.isLoading) {
+        return const Center(child: CircularProgressIndicator());
+      }
+
+      if (recipeController.errorMessage.isNotEmpty) {
+        return Center(
+          child: Text(
+            recipeController.errorMessage,
+            style: TextStyle(color: Colors.red),
+          ),
+        );
+      }
+
+      final recipes = recipeController.filteredRecipes;
+
+      if (recipes.isEmpty) {
+        return Center(
+          child: Text(
+            'No recipes found',
+            style: TextStyle(color: Colors.grey[600]),
+          ),
+        );
+      }
+
+      return SizedBox(
+        height: 250,
+        child: ListView.separated(
+          scrollDirection: Axis.horizontal,
+          itemCount: recipes.length,
+          separatorBuilder: (_, __) => const SizedBox(width: 16),
+          itemBuilder: (context, index) {
+            final recipe = recipes[index];
+            return RecipeCard(
+              imagePath: recipe.imagePath,
+              title: recipe.title,
+              rating: recipe.rating,
+              time: recipe.time,
+            );
+          },
+        ),
+      );
+    });
   }
 }

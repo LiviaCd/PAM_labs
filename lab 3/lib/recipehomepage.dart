@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pam_lab2/sectiontitle.dart';
 import 'package:pam_lab2/topbar.dart';
 
 import 'categoryfilterchips.dart';
+import 'controllers/category_controller.dart';
+import 'controllers/recipe_controller.dart';
 import 'featuredrecipes.dart';
 import 'newrecipeslist.dart';
 
 class RecipeHomePage extends StatelessWidget {
-  @override
+  final CategoryController categoryController = Get.put(CategoryController());
+  final RecipeController recipeController = Get.put(RecipeController());
+
+
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFF5F5F5),
@@ -39,6 +46,9 @@ class RecipeHomePage extends StatelessWidget {
                         ],
                       ),
                       child: TextField(
+                        onChanged: (value) {
+                          recipeController.searchRecipes(value);
+                        },
                         decoration: InputDecoration(
                           hintText: 'Search recipe',
                           hintStyle: TextStyle(
@@ -74,7 +84,21 @@ class RecipeHomePage extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 20),
-              CategoryFilterChips(),
+              Obx(() {
+                if (categoryController.isLoading) {
+                  return Center(child: CircularProgressIndicator());
+                }
+
+                return CategoryFilterChips(
+                  categories: categoryController.categories.map((cat) => cat.name).toList(),
+                  selectedCategory: categoryController.selectedCategory,
+                  onCategorySelected: (category) {
+                    categoryController.selectCategory(category);
+                    recipeController.filterByCategory(category);
+                  },
+                );
+              }),
+
               SizedBox(height: 24),
               FeaturedRecipes(),
               SizedBox(height: 2),

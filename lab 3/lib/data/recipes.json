@@ -1,0 +1,39 @@
+{
+  "recipes": [
+    {
+      "category": "All",
+      "imagePath": "assets/images/classic_greek_salad.png",
+      "title": "Classic Greek Salad",
+      "rating": 4.5,
+      "time": "15 Mins"
+    },
+    {
+      "category": "All",
+      "imagePath": "assets/images/crunchy_nut_coleslaw.png",
+      "title": "Crunchy Nut Coleslaw",
+      "rating": 3.5,
+      "time": "10 Mins"
+    },
+    {
+      "category": "Italian",
+      "imagePath": "assets/images/pasta_carbonara.png",
+      "title": "Pasta Carbonara",
+      "rating": 4.7,
+      "time": "20 Mins"
+    },
+    {
+      "category": "Indian",
+      "imagePath": "assets/images/indian_curry.png",
+      "title": "Indian Curry",
+      "rating": 4.8,
+      "time": "25 Mins"
+    },
+    {
+      "category": "Chinese",
+      "imagePath": "assets/images/chinese_rice.png",
+      "title": "Chinese Fried Rice",
+      "rating": 4.6,
+      "time": "12 Mins"
+    }
+  ]
+}
