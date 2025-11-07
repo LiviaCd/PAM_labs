@@ -9,6 +9,7 @@ class NewRecipeCard extends StatelessWidget {
     required this.rating,
     required this.time,
     required this.authorImagePath,
+    this.onTap,
   });
 
   final String title;
@@ -17,6 +18,7 @@ class NewRecipeCard extends StatelessWidget {
   final int rating;
   final String time;
   final String authorImagePath;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +49,7 @@ class NewRecipeCard extends StatelessWidget {
               ),
               child: InkWell(
                 borderRadius: BorderRadius.circular(16),
-                onTap: () => Navigator.pushNamed(context, '/recipepage'),
+                onTap: onTap ?? () => Navigator.pushNamed(context, '/recipepage'),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

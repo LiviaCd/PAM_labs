@@ -5,6 +5,7 @@ class RecipeCard extends StatelessWidget {
   final double rating;
   final String time;
   final String imagePath;
+  final VoidCallback? onTap;
 
   const RecipeCard({
     super.key,
@@ -12,6 +13,7 @@ class RecipeCard extends StatelessWidget {
     required this.rating,
     required this.time,
     required this.imagePath,
+    this.onTap,
   });
 
   @override
@@ -29,7 +31,7 @@ class RecipeCard extends StatelessWidget {
             left: 0,
             right: 0,
             child: InkWell(
-              onTap: () => Navigator.pushNamed(context, '/recipepage'),
+              onTap: onTap ?? () => Navigator.pushNamed(context, '/recipepage'),
               child: Container(
                 height: 176,
                 decoration: BoxDecoration(

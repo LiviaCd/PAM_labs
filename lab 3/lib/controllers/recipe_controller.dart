@@ -12,6 +12,7 @@ class RecipeController extends GetxController {
   final RxString _searchQuery = ''.obs;
   final RxBool _isLoading = false.obs;
   final RxString _errorMessage = ''.obs;
+  final Rxn<Recipe> _selectedRecipe = Rxn<Recipe>();
 
   // Getters
   List<Recipe> get allRecipes => _allRecipes;
@@ -20,6 +21,7 @@ class RecipeController extends GetxController {
   String get searchQuery => _searchQuery.value;
   bool get isLoading => _isLoading.value;
   String get errorMessage => _errorMessage.value;
+  Recipe? get selectedRecipe => _selectedRecipe.value;
 
   @override
   void onInit() {
@@ -83,5 +85,10 @@ class RecipeController extends GetxController {
   /// Refreshes data
   Future<void> refresh() async {
     await loadRecipes();
+  }
+
+  /// Selects a recipe for detail view
+  void selectRecipe(Recipe recipe) {
+    _selectedRecipe.value = recipe;
   }
 }

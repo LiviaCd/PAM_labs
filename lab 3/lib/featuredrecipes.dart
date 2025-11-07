@@ -46,6 +46,10 @@ class FeaturedRecipes extends StatelessWidget {
               title: recipe.title,
               rating: recipe.rating,
               time: recipe.time,
+              onTap: () {
+                recipeController.selectRecipe(recipe);
+                Navigator.pushNamed(context, '/recipepage');
+              },
             );
           },
         ),

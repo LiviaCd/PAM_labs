@@ -47,6 +47,10 @@ class NewRecipesList extends StatelessWidget {
               time: recipe.time,
               imagePath: recipe.imagePath,
               authorImagePath: 'assets/images/jamesMilner.png', // Default author image
+              onTap: () {
+                recipeController.selectRecipe(recipe);
+                Navigator.pushNamed(context, '/recipepage');
+              },
             );
           },
         ),

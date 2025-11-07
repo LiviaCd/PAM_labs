@@ -1,22 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pam_lab2/pageoptions.dart';
 import 'package:pam_lab2/recipeinfotoggle.dart';
 import 'package:pam_lab2/recipeingredients.dart';
 import 'package:pam_lab2/recipeoverview.dart';
 import 'package:pam_lab2/userinformation.dart';
+import 'controllers/recipe_controller.dart';
 
 class RecipePage extends StatelessWidget {
   const RecipePage({super.key});
-  final String imageUrl = 'assets/images/burger.png';
-  final String preptime = '20 min';
-  final double score = 4.0;
-  final String name = 'Spicy chicken burger with French fries';
-  final String reviewCount = '13k';
-  final String userName = 'Laura Wilson';
-  final String userAddress = 'Lagos, Nigeria';
+  RecipeController get recipeController => Get.find<RecipeController>();
 
   @override
   Widget build(BuildContext context) {
+    final recipe = recipeController.selectedRecipe;
+    // Fallback: if route opened without selection, pick first recipe if available
+    final fallback = (recipeController.filteredRecipes.isNotEmpty)
+        ? recipeController.filteredRecipes.first
+        : null;
+    final r = recipe ?? fallback;
+    if (r == null) {
+      return const Scaffold(
+        body: Center(child: Text('No recipe selected')),
+      );
+    }
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -29,18 +36,27 @@ class RecipePage extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               RecipeOverview(
-                imageUrl: imageUrl,
-                preptime: preptime,
-                score: score,
-                name: name,
-                reviewCount: reviewCount,
+                imageUrl: r.imagePath,
+                preptime: r.time,
+                score: r.rating,
+                name: r.title,
+                reviewCount: r.reviewCount,
               ),
               const SizedBox(height: 10),
-              UserInformation(name: userName, address: userAddress),
+              UserInformation(name: 'Chef', address: 'Unknown'),
               const SizedBox(height: 20),
               RecipeInfoToggle(),
               const SizedBox(height: 35),
-              RecipeIngredients()
+              RecipeIngredients(
+                serves: r.serves,
+                ingredients: r.ingredients
+                    .map((i) => IngredientCard(
+                          name: i.name,
+                          imageUrl: i.imagePath,
+                          grams: i.grams,
+                        ))
+                    .toList(),
+              )
             ],
           ),
         ),

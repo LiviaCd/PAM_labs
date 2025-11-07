@@ -1,37 +1,19 @@
 import 'package:flutter/material.dart';
 
 class RecipeIngredients extends StatelessWidget {
-  const RecipeIngredients({super.key});
+  const RecipeIngredients({super.key, required this.serves, required this.ingredients});
+
+  final int serves;
+  final List<IngredientCard> ingredients;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Summary(ingredientCount: 10, serves: 1),
+        Summary(ingredientCount: ingredients.length, serves: serves),
         const SizedBox(height: 20),
         Ingredients(
-          ingredients: [
-            IngredientCard(
-              name: 'Tomatoes',
-              imageUrl: 'assets/images/tomato.png',
-              grams: 500,
-            ),
-            IngredientCard(
-              name: 'Cabbage',
-              imageUrl: 'assets/images/cabbage.png',
-              grams: 300,
-            ),
-            IngredientCard(
-              name: 'Taco',
-              imageUrl: 'assets/images/taco.png',
-              grams: 300,
-            ),
-            IngredientCard(
-              name: 'Sliced Bread',
-              imageUrl: 'assets/images/bread.png',
-              grams: 300,
-            ),
-          ],
+          ingredients: ingredients,
         ),
       ],
     );
