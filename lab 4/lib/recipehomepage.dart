@@ -4,14 +4,14 @@ import 'package:pam_lab2/sectiontitle.dart';
 import 'package:pam_lab2/topbar.dart';
 
 import 'categoryfilterchips.dart';
-import 'controllers/category_controller.dart';
-import 'controllers/recipe_controller.dart';
+import 'presentation/controllers/category_controller.dart';
+import 'presentation/controllers/recipe_controller.dart';
 import 'featuredrecipes.dart';
 import 'newrecipeslist.dart';
 
 class RecipeHomePage extends StatelessWidget {
-  final CategoryController categoryController = Get.put(CategoryController());
-  final RecipeController recipeController = Get.put(RecipeController());
+  final CategoryController categoryController = Get.find<CategoryController>();
+  final RecipeController recipeController = Get.find<RecipeController>();
 
 
 

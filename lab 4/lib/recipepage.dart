@@ -5,8 +5,8 @@ import 'package:pam_lab2/recipeinfotoggle.dart';
 import 'package:pam_lab2/recipeingredients.dart';
 import 'package:pam_lab2/recipeoverview.dart';
 import 'package:pam_lab2/userinformation.dart';
-import 'controllers/recipe_controller.dart';
-import 'models/recipe.dart';
+import 'presentation/controllers/recipe_controller.dart';
+import 'domain/entities/recipe.dart';
 
 class RecipePage extends StatelessWidget {
   const RecipePage({super.key});

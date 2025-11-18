@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'newrecipecard.dart';
-import 'controllers/recipe_controller.dart';
+import 'presentation/controllers/recipe_controller.dart';
 
 class NewRecipesList extends StatelessWidget {
   final RecipeController recipeController = Get.find<RecipeController>();

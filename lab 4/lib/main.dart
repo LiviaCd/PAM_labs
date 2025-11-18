@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pam_lab2/recipehomepage.dart';
 import 'package:pam_lab2/recipepage.dart';
-import 'package:pam_lab2/controllers/recipe_controller.dart';
-import 'package:pam_lab2/controllers/category_controller.dart';
+import 'di/injection.dart';
 
 void main() {
+  // Initialize dependencies
+  Injection.init();
   runApp(MyApp());
 }
 
@@ -21,15 +22,6 @@ class MyApp extends StatelessWidget {
       routes: {
         '/recipepage': (context) => RecipePage(),
       },
-      initialBinding: AppBinding(),
     );
-  }
-}
-
-class AppBinding extends Bindings {
-  @override
-  void dependencies() {
-    Get.put(RecipeController());
-    Get.put(CategoryController());
   }
 }

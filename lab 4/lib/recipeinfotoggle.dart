@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'repositories/data_repository.dart';
+import 'domain/entities/tab_info.dart';
 
 class RecipeInfoToggle extends StatefulWidget {
   const RecipeInfoToggle({super.key, this.tabs = const []});
@@ -25,15 +25,14 @@ class _RecipeInfoToggleState extends State<RecipeInfoToggle> {
 
   @override
   Widget build(BuildContext context) {
-    final tabs = widget.tabs.isNotEmpty 
-        ? widget.tabs 
-        : [TabInfo(name: "Ingredient", active: true), TabInfo(name: "Procedure", active: false)];
+    final categories = ["Ingredient", "Procedure"];
+
     
     return SizedBox(
       height: 33, // row height
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        itemCount: tabs.length,
+        itemCount: categories.length,
         separatorBuilder: (_, __) => const SizedBox(width: 15),
         itemBuilder: (context, index) {
           final isSelected = selectedIndex == index;
@@ -43,9 +42,10 @@ class _RecipeInfoToggleState extends State<RecipeInfoToggle> {
             child: ChoiceChip(
               label: Center(
                 child: Text(
-                  tabs[index].name,
+                  categories[index],
                   style: TextStyle(
-                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
                     color: isSelected ? Colors.white : const Color(0xFF129575),
                   ),
                 ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'controllers/recipe_controller.dart';
+import 'presentation/controllers/recipe_controller.dart';
 
 class SearchBar extends StatelessWidget {
   @override
